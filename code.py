@@ -18,7 +18,7 @@ _discord_dank_memer_wait_times = {
     "pls hunt": 41,
     "pls fish": 41,
     "pls dig": 41,
-    "pls dep all": 300,
+    "pls dep all": 301,
 }
 _discord_dank_memer_prev_action = {
     "pls beg": -3600,
