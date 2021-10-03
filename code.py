@@ -33,25 +33,21 @@ _discord_dank_memer_wait_times = {
     "pls sell skunk all": STACKABLES_WAIT,
     "pls sell work all": STACKABLES_WAIT,
 }
-_discord_dank_memer_wait_times_randomised = _discord_dank_memer_wait_times
+
 _discord_dank_memer_prev_action = {}
 
 def discord_dank_memer():
     global _discord_dank_memer_wait_times
-    global _discord_dank_memer_wait_times_randomised
     global _discord_dank_memer_prev_action
     time_int = int(time.time())
     for action in _discord_dank_memer_wait_times:
         if action not in _discord_dank_memer_prev_action:
-            _discord_dank_memer_prev_action[action] = random.randint(int(time.time()-30),int(time.time()+30))
-        if _discord_dank_memer_prev_action[action]+_discord_dank_memer_wait_times_randomised[action] < time_int and max(_discord_dank_memer_prev_action.values())+(random.randint(1000,3000)/1000) < time_int:
+            _discord_dank_memer_prev_action[action] = time_int+random.randint(0,60)
+        if _discord_dank_memer_prev_action[action]+_discord_dank_memer_wait_times[action] < time_int and max(_discord_dank_memer_prev_action.values())+2 < time_int:
             print(action)
             layout.write(action)
             kbd.send(Keycode.ENTER)
             _discord_dank_memer_prev_action[action] = time_int
-            _discord_dank_memer_wait_times_randomised[action] = _discord_dank_memer_wait_times[action]+(random.randint(2000,8000)/1000)
-    if time_int % 5 == 0:
-        print(_discord_dank_memer_wait_times_randomised)
 
 def test_print():
     print("app run")
