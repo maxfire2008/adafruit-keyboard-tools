@@ -13,28 +13,30 @@ from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
 kbd = Keyboard(usb_hid.devices)
 layout = KeyboardLayoutUS(kbd)
 
-_discord_dank_memer_previous_times = {
-    "beg": 0,
-    "hunt": 0,
-    "fish": 0,
-    "dig": 0,
-    "dep all": 0,
-}
-
 _discord_dank_memer_wait_times = {
-    "beg": 46,
-    "hunt": 41,
-    "fish": 41,
-    "dig": 41,
-    "dep all": 300,
+    "pls beg": 46,
+    "pls hunt": 41,
+    "pls fish": 41,
+    "pls dig": 41,
+    "pls dep all": 300,
+}
+_discord_dank_memer_prev_action = {
+    "pls beg": -3600,
+    "pls hunt": -3600,
+    "pls fish": -3600,
+    "pls dig": -3600,
+    "pls dep all": -3600,
 }
 
 def discord_dank_memer():
-##    global _discord_dank_memer_previous_times
-##    global _discord_dank_memer_wait_times
-##    layout.write('pls bal')
-##    kbd.send(Keycode.ENTER)
-    print("dmemer")
+    global _discord_dank_memer_wait_times
+    global _discord_dank_memer_prev_action
+    time_int = int(time.time())
+    for action in _discord_dank_memer_wait_times:
+        if _discord_dank_memer_prev_action[action]+_discord_dank_memer_wait_times[action] < time_int and max(_discord_dank_memer_prev_action.values())+2 < time_int:
+            layout.write(action)
+            kbd.send(Keycode.ENTER)
+            _discord_dank_memer_prev_action[action] = time_int
 
 def test_print():
     print("app run")
@@ -52,17 +54,15 @@ apps = [
 
 buttonA = digitalio.DigitalInOut(board.BUTTON_A)
 buttonA.direction = digitalio.Direction.INPUT
-buttonA.pull = digitalio.Pull.UP
+buttonA.pull = digitalio.Pull.DOWN
 buttonB = digitalio.DigitalInOut(board.BUTTON_B)
 buttonB.direction = digitalio.Direction.INPUT
-buttonB.pull = digitalio.Pull.UP
+buttonB.pull = digitalio.Pull.DOWN
 
 current_app = 0
 running_app = False
 while True:
     current_app %= len(apps)
-    print(current_app)
-    print(time.time())
     if running_app:
         apps[current_app]["app_func"]()
         current_led_running = int(time.time())
@@ -76,9 +76,21 @@ while True:
             pixels[i] = apps[current_app]["app_colour"]
             pixels.show()
         if buttonA.value and buttonB.value:
-            print("start")
             running_app = True
+            time.sleep(2)
         elif buttonA.value:
-            current_app -= 1
+            time.sleep(2)
+            if buttonA.value and buttonB.value:
+                running_app = True
+                time.sleep(2)
+            else:
+                current_app -= 1
+                time.sleep(1)
         elif buttonB.value:
-            current_app += 1
+            time.sleep(2)
+            if buttonA.value and buttonB.value:
+                running_app = True
+                time.sleep(2)
+            else:
+                current_app += 1
+                time.sleep(1)
