@@ -22,16 +22,6 @@ _discord_dank_memer_wait_times = {
     "pls fish": 41,
     "pls dig": 41,
     "pls dep all": STACKABLES_WAIT,
-    "pls sell boar all": STACKABLES_WAIT,
-    "pls sell cookie all": STACKABLES_WAIT,
-    "pls sell dear all": STACKABLES_WAIT,    
-    "pls sell duck all": STACKABLES_WAIT,
-    "pls sell fish all": STACKABLES_WAIT,
-    "pls sell junk all": STACKABLES_WAIT,
-    "pls sell rabbit all": STACKABLES_WAIT,
-    "pls sell seaweed all": STACKABLES_WAIT,
-    "pls sell skunk all": STACKABLES_WAIT,
-    "pls sell work all": STACKABLES_WAIT,
 }
 
 _discord_dank_memer_prev_action = {}
